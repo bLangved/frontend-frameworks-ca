@@ -1,3 +1,160 @@
 @import "global.scss";
 @import "color-scheme.scss";
 @import "breakpoints.scss";
+
+header {
+  .banner-logo {
+    margin-left: 1em;
+    img {
+      background-color: transparent;
+      height: fit-content;
+      width: 6em;
+    }
+  }
+
+  .searchbar {
+    margin: 0 auto;
+
+    input {
+      width: 6em;
+      border-radius: 0.25em;
+      border: 0;
+      padding: 0.5em;
+      font-size: 1rem;
+      outline: 0px solid black;
+      transition: outline 0.1s ease;
+
+      @include breakpoint(medium) {
+        width: 13.5em;
+      }
+
+      &:focus {
+        outline: 2px solid black;
+        transition: outline 0.1s ease;
+      }
+    }
+  }
+
+  .banner-nav-wrapper {
+    margin: 0 1em 0 auto;
+
+    .hamburger-button {
+      background-color: #333;
+      background-color: transparent;
+      color: white;
+      font-size: 2rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    nav {
+      display: none;
+      background-color: #f9f9f9;
+      position: absolute;
+      width: fit-content;
+      right: 0;
+      top: 4em;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+      &.open {
+        display: block;
+      }
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      li {
+        padding: 1em;
+        &:not(:last-child) {
+          margin-bottom: 0.5em;
+        }
+        &:hover {
+          background-color: #d1cfcf;
+        }
+      }
+    }
+  }
+}
+
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 12em;
+    width: 10em;
+    background-color: white;
+    z-index: 0;
+    box-shadow: 0 0 5px lightgray;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    &:hover {
+      z-index: 1;
+      box-shadow: 0 0 10px lightgray;
+      transform: scale(110%);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    img {
+      height: 5em;
+      width: 100%;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      padding: 0.5em;
+    }
+    a {
+      margin-top: auto;
+      width: 100%;
+      button {
+        border: none;
+        width: 100%;
+        height: 3em;
+      }
+    }
+  }
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  //   align-items: center;
+  gap: 1em;
+
+  img {
+    height: 20em;
+    width: 100%;
+  }
+
+  .product-id {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-tags {
+    span {
+      margin-right: 0.5em;
+    }
+  }
+  .product-reviews {
+    // margin-right: auto;
+    .review {
+      padding: 1em;
+      margin-bottom: 1em;
+      background-color: #f9f9f9;
+      .review-user {
+      }
+      .review-rating {
+      }
+      .review-description {
+      }
+    }
+  }
+}

@@ -1,15 +1,23 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React from "react";
+import "./components/";
 import "./App.css";
+import { Layout } from "./components/";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home, Products, Product, Checkout, RouteNotFound } from "./pages/";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <h1>Hello world</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="products" element={<Products />} />
+          <Route path="product/:id" element={<Product />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="*" element={<RouteNotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
