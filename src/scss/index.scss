@@ -1,8 +1,66 @@
-@import "global.scss";
-@import "color-scheme.scss";
-@import "breakpoints.scss";
+@import "global";
+@import "color-scheme";
+@import "breakpoints";
+@import "variables";
+
+// globals //
+.star-rating {
+  grid-area: rating;
+  display: flex;
+  gap: 0.5em;
+
+  .stars {
+    display: flex;
+    align-items: center;
+
+    .star {
+      position: relative;
+      width: 20px;
+      height: 20px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+      }
+    }
+    .star-full img {
+      opacity: 1;
+    }
+    .star-one-quarter::before,
+    .star-half::before,
+    .star-three-quarter::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: orange;
+      mask: url("/icons/star.svg");
+      mask-size: cover;
+      opacity: 1;
+    }
+    .star-one-quarter::before {
+      width: 25%;
+    }
+    .star-half::before {
+      width: 50%;
+    }
+    .star-three-quarter::before {
+      width: 75%;
+    }
+  }
+}
 
 header {
+  .header-content {
+    height: 4em;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    max-width: 1200px;
+  }
   .banner-logo {
     margin-left: 1em;
     img {
@@ -80,43 +138,151 @@ header {
 
 .products-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1em;
+  margin-bottom: 1em;
+
+  @include breakpoint(medium) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  @include breakpoint(x-large) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
   .card {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 12em;
-    width: 10em;
-    background-color: white;
-    z-index: 0;
+    gap: 1em;
+    border-radius: $radius-sm;
+    width: 100%;
+    background: $col-white;
     box-shadow: 0 0 5px lightgray;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-    &:hover {
-      z-index: 1;
-      box-shadow: 0 0 10px lightgray;
-      transform: scale(110%);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+    @include breakpoint(x-small) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 5em 3em 4em 3em;
+      grid-template-areas:
+        "image  name"
+        "image  rating"
+        "image  price"
+        "image  calltoaction";
+      gap: 0.5em;
+      padding: 0.5em;
+
+      &:hover {
+        .card-image-wrapper {
+          img {
+            transform: scale(101%);
+            opacity: 1;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+          }
+        }
+      }
     }
 
-    img {
-      height: 5em;
+    .card-image-wrapper {
+      grid-area: image;
+      height: 10em;
       width: 100%;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        opacity: 1;
+        border-radius: $radius-sm-top;
+        box-shadow: 0 0 5px lightgray;
+        transition: transform 0.6s ease, opacity 0.6s ease;
+      }
+      @include breakpoint(x-small) {
+        height: 100%;
+        width: auto;
+        img {
+          height: 100%;
+          opacity: 0.8;
+          border-radius: $radius-sm;
+        }
+      }
     }
 
     .card-title {
+      grid-area: name;
       font-size: 1.25rem;
       font-weight: 700;
-      padding: 0.5em;
+
+      margin-left: 0.4em;
+      @include breakpoint(x-small) {
+        margin-left: 0;
+      }
     }
+
+    .card-price-wrapper {
+      position: relative;
+      grid-area: price;
+      display: flex;
+      flex-direction: column;
+      margin-left: 0.5em;
+      @include breakpoint(x-small) {
+        margin-left: 0;
+      }
+
+      .card-price-discounted-percentage {
+        border-radius: $radius-circle;
+        background-color: red;
+        height: 3em;
+        width: 3em;
+        position: absolute;
+        top: -210px;
+        right: 7px;
+        box-shadow: 0 0 3px 1px rgb(180, 0, 0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        span {
+          color: white;
+          font-weight: bold;
+        }
+
+        @include breakpoint(x-small) {
+          top: -135px;
+          left: -64px;
+        }
+      }
+
+      .card-price-discounted {
+        margin-top: auto;
+        font-size: 0.9rem;
+      }
+      .card-price {
+        margin-top: auto;
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+    }
+    .star-rating {
+      margin-left: 0.5em;
+      @include breakpoint(x-small) {
+        margin-left: 0;
+      }
+      .card-reviews {
+        margin: auto 0;
+      }
+    }
+
     a {
+      grid-area: calltoaction;
       margin-top: auto;
       width: 100%;
       button {
         border: none;
         width: 100%;
         height: 3em;
+        border-radius: $radius-sm-bottom;
+
+        @include breakpoint(x-small) {
+          border-radius: $radius-sm;
+        }
       }
     }
   }
@@ -125,35 +291,144 @@ header {
 .product {
   display: flex;
   flex-direction: column;
-  //   align-items: center;
   gap: 1em;
 
-  img {
+  @include breakpoint(medium) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "image title"
+      "image description"
+      "image price"
+      "image rating"
+      "productId ."
+      "tags ."
+      "customerReviews customerReviews";
+    padding: 1em;
+  }
+
+  .star-rating {
+    margin-left: 0.5em;
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
+  }
+
+  .product-image {
+    grid-area: image;
     height: 20em;
     width: 100%;
+    object-fit: cover;
+    box-shadow: $shadow-md $col-forth;
+
+    @include breakpoint(medium) {
+      border-radius: $radius-sm;
+    }
+  }
+
+  .product-title {
+    grid-area: title;
+
+    margin-left: 0.5em;
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
+  }
+
+  .product-description {
+    grid-area: description;
+
+    margin-left: 0.5em;
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
+  }
+
+  .product-price-wrapper {
+    position: relative;
+    grid-area: price;
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 0.5em;
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
+
+    .product-price-discounted-percentage {
+      border-radius: $radius-circle;
+      background-color: red;
+      height: 3em;
+      width: 3em;
+      position: absolute;
+      top: -210px;
+      right: 7px;
+      box-shadow: 0 0 3px 1px rgb(180, 0, 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      span {
+        color: white;
+        font-weight: bold;
+      }
+
+      @include breakpoint(x-small) {
+        top: -135px;
+        left: -64px;
+      }
+    }
+
+    .product-price-discounted {
+      margin-top: auto;
+      font-size: 0.9rem;
+    }
+    .product-price {
+      margin-top: auto;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
   }
 
   .product-id {
-    display: flex;
-    flex-direction: column;
+    grid-area: productId;
+
+    margin-left: 0.5em;
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
   }
 
   .product-tags {
+    grid-area: tags;
+
+    margin-left: 0.5em;
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
     span {
       margin-right: 0.5em;
     }
   }
   .product-reviews {
-    // margin-right: auto;
+    grid-area: customerReviews;
+    h2 {
+      margin-left: 0.5em;
+    }
     .review {
       padding: 1em;
       margin-bottom: 1em;
-      background-color: #f9f9f9;
-      .review-user {
-      }
-      .review-rating {
+      background-color: #efefef;
+
+      .star-rating {
+        margin-left: 0;
       }
       .review-description {
+        max-width: 65ch;
+      }
+      .review-user {
+        span:last-child {
+          font-weight: bold;
+        }
       }
     }
   }

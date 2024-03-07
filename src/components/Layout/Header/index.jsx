@@ -7,14 +7,16 @@ function Header() {
   return (
     <React.Fragment>
       <header>
-        <Link to="/" title="Home" className="banner-logo">
-          <img
-            src="https://wilsonclinic.com/wp-content/uploads/2018/12/placeholder-logo-2.png"
-            alt="Brand Logo"
-          />
-        </Link>
-        <Searchbar />
-        <HamburgerMenu />
+        <div className="header-content">
+          <Link to="/" title="Home" className="banner-logo">
+            <img
+              src="https://wilsonclinic.com/wp-content/uploads/2018/12/placeholder-logo-2.png"
+              alt="Brand Logo"
+            />
+          </Link>
+          <Searchbar />
+          <HamburgerMenu />
+        </div>
       </header>
     </React.Fragment>
   );

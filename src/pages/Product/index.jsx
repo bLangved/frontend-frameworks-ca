@@ -1,6 +1,7 @@
 import React, { createElement } from "react";
 import { useParams } from "react-router-dom";
 import useApi from "../../hooks/useApi";
+import StarRating from "../../components/StarRating";
 
 function Product() {
   let { id } = useParams();
@@ -38,10 +39,13 @@ function Product() {
   const renderedReviews = reviews
     ? reviews.map((review, index) => (
         <div key={index} className="review">
-          <p className="review-user">Username: {review.username}</p>
-          <p className="review-rating">Rating: {review.rating} / 5</p>
-          <p className="review-description">
-            Description: {review.description}
+          <div className="star-rating">
+            <StarRating rating={review.rating} />
+          </div>
+          <p className="review-description">{review.description}</p>
+          <p className="review-user">
+            <span>By: </span>
+            <span>{review.username}</span>
           </p>
         </div>
       ))
@@ -49,20 +53,44 @@ function Product() {
 
   return (
     <article className="product">
-      <img src={imageUrl} alt={imageAlt} />
-      <h1>{title}</h1>
-      <div>
-        <span>Description:</span>
-        <p>{description}</p>
+      {/* {data.data.map((item) => {
+        const discountPercentage =
+          ((Number(item.price) - Number(item.discountedPrice)) /
+            Number(item.price)) *
+          100;
+} */}
+
+      <img className="product-image" src={imageUrl} alt={imageAlt} />
+      <h1 className="product-title">{title}</h1>
+      <p className="product-description">{description}</p>
+      <div className="product-price-wrapper">
+        {price !== discountedPrice && (
+          <>
+            {/* <div className="product-price-discounted-percentage">
+                    <span>-{discountPercentage.toFixed(0)}%</span>
+                  </div> */}
+            <span className="product-price-discounted">Before: {price},-</span>
+            <span className="product-price">Now: {discountedPrice},-</span>
+          </>
+        )}
+        {discountedPrice === price && (
+          <>
+            <span className="product-price">{discountedPrice},-</span>
+          </>
+        )}
       </div>
-      <div>price: {price}</div>
-      <div>discountedPrice: {discountedPrice}</div>
-      <div>rating: {rating} / 5</div>
+
+      <div className="star-rating">
+        <StarRating rating={rating} />
+      </div>
       <div className="product-id">
         <span>Product ID:</span>
         <span>{productId}</span>
       </div>
-      <div className="product-tags">tags: {renderedTags}</div>
+      <div className="product-tags">
+        <span>tags:</span>
+        <span>{renderedTags}</span>
+      </div>
       <section className="product-reviews">
         <h2>Customer reviews</h2>
         <div>{renderedReviews}</div>

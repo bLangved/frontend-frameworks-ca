@@ -1,0 +1,30 @@
+// Fonts
+$fs-300: 1rem;
+$fs-400: 1.125rem;
+$fs-500: 1.25rem;
+$fs-600: 1.5rem;
+$fs-700: 1.75rem;
+$fs-800: 2rem;
+$fs-900: 2.5rem;
+
+// Colors
+$col-primary: #d1e8e2; // soft mint green
+$col-secondary: #19747e; // deep teal
+$col-third: #a9d6e5; // light sky blue
+$col-forth: #e2e2e2; // light gray
+$col-white: rgb(255, 255, 255);
+$col-near-white: rgb(252, 252, 252);
+$col-black: rgb(10, 10, 10);
+$col-near-black: rgb(30, 30, 30);
+
+$radius-sm: 5px;
+$radius-sm-top: 5px 5px 0 0;
+$radius-sm-bottom: 0 0 5px 5px;
+$radius-lg: 10px;
+$radius-lg-top: 10px 10px 0 0;
+$radius-lg-bottom: 0 0 10px 10px;
+$radius-circle: 50%;
+
+$shadow-sm: 0 0 5px 0;
+$shadow-md: 0 0 10px 0;
+$shadow-lg: 0 0 20px 0;
