@@ -1,19 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Nav({ isOpen }) {
+function Nav({ isOpen, toggleMenu }) {
   return (
     <React.Fragment>
       <nav className={`menu ${isOpen ? "open" : ""}`}>
+        <header className="nav-header">
+          <button className="nav-back"></button>
+          <button className="nav-close" onClick={toggleMenu}>
+            <img src="/icons/menu-open.png" alt="Close navigation window" />
+          </button>
+        </header>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/products/tech">Tech</Link>
           </li>
           <li>
-            <Link to="/products">Products</Link>
+            <Link to="/products/clothes-shoewear">Clothes & shoewear</Link>
           </li>
           <li>
-            <Link to="/checkout">Checkout</Link>
+            <Link to="/products/food-supplements">Food & supplements</Link>
+          </li>
+
+          <li>
+            <Link to="/products/perfume">Perfume</Link>
+          </li>
+
+          <li>
+            <Link to="/products/toys">Toys</Link>
           </li>
         </ul>
       </nav>

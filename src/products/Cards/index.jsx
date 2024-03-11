@@ -16,7 +16,7 @@ function ApiCall() {
   }
 
   return (
-    <section className="products-container">
+    <section className="card-container">
       {data.data.map((item) => {
         const discountPercentage =
           ((Number(item.price) - Number(item.discountedPrice)) /

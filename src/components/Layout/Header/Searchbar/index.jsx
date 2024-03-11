@@ -1,8 +1,11 @@
-function Searchbar() {
+import React, { forwardRef } from "react";
+
+const Searchbar = forwardRef((props, ref) => {
   return (
     <div className="searchbar">
-      <input type="text" placeholder="Search" />
+      <input ref={ref} type="text" placeholder="Search" />
     </div>
   );
-}
+});
+
 export default Searchbar;

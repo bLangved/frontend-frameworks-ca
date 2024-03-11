@@ -1,5 +1,5 @@
 function Products() {
-  return <div>Products</div>;
+  return <React.Fragment></React.Fragment>;
 }
 
 export default Products;

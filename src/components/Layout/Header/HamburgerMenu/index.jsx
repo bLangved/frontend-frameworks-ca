@@ -9,12 +9,13 @@ function HamburgerMenu() {
   };
 
   return (
-    <div className="banner-nav-wrapper">
+    <React.Fragment>
       <button className="hamburger-button" onClick={toggleMenu}>
-        ☰
+        <img src="/icons/menu-closed-white.png" alt="" />
+        Products
       </button>
-      <Nav isOpen={isOpen} />
-    </div>
+      <Nav isOpen={isOpen} toggleMenu={toggleMenu} />
+    </React.Fragment>
   );
 }
 
