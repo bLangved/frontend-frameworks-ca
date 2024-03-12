@@ -22,7 +22,7 @@ function ApiCall() {
           ((Number(item.price) - Number(item.discountedPrice)) /
             Number(item.price)) *
           100;
-        console.log(item);
+        // console.log(item);
         return (
           <div key={item.id} className="card">
             <div className="card-image-wrapper">

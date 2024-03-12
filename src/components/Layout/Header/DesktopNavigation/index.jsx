@@ -19,12 +19,12 @@ function DesktopNavigation() {
                 Home
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/search">
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
                 Search
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/cart">
                 <FontAwesomeIcon icon={faShoppingCart} />

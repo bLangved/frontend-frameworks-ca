@@ -21,7 +21,6 @@ function useApi(url) {
         const json = await fetchedData.json();
         if (isMounted) {
           setData(json);
-          // console.log(json);
         }
       } catch (error) {
         if (isMounted) {
