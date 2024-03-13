@@ -1,13 +1,15 @@
-import React, { createElement } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import useApi from "../../hooks/useApi";
 import StarRating from "../../components/StarRating";
+import { useCart } from "../../contexts/CartContext";
 
 function Product() {
   let { id } = useParams();
   const { data, isLoading, isError } = useApi(
     `https://v2.api.noroff.dev/online-shop/${id}`
   );
+  const { addToCart } = useCart();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -61,8 +63,11 @@ function Product() {
 } */}
 
       <img className="product-image" src={imageUrl} alt={imageAlt} />
-      <h1 className="product-title">{title}</h1>
+      <h1 className="product-title header">{title}</h1>
       <p className="product-description">{description}</p>
+      <div className="star-rating">
+        <StarRating rating={rating} />
+      </div>
       <div className="product-price-wrapper">
         {price !== discountedPrice && (
           <>
@@ -79,17 +84,17 @@ function Product() {
           </>
         )}
       </div>
+      <button className="product-buyBtn" onClick={() => addToCart(data.data)}>
+        Add to cart
+      </button>
 
-      <div className="star-rating">
-        <StarRating rating={rating} />
+      <div className="product-tags">
+        <span>tags:</span>
+        <span>{renderedTags}</span>
       </div>
       <div className="product-id">
         <span>Product ID:</span>
         <span>{productId}</span>
-      </div>
-      <div className="product-tags">
-        <span>tags:</span>
-        <span>{renderedTags}</span>
       </div>
       <section className="product-reviews">
         <h2>Customer reviews</h2>

@@ -195,6 +195,27 @@ header {
               padding: 0;
             }
           }
+          .cart-list {
+            position: relative;
+            .cart-badge {
+              display: grid;
+              place-content: center;
+              position: absolute;
+              top: -10px;
+              right: 28px;
+              padding: 0.75em;
+              height: 1em;
+              width: 1em;
+              border-radius: 50%;
+              background: red;
+              color: white;
+
+              span {
+                font-size: 0.75rem;
+              }
+            }
+          }
+
           &:first-child {
             .hamburger-button {
               padding: 0;
@@ -492,10 +513,11 @@ footer {
     grid-template-areas:
       "image title"
       "image description"
-      "image price"
       "image rating"
-      "productId ."
+      "image price"
+      "image callToAction"
       "tags ."
+      "productId ."
       "customerReviews customerReviews";
     padding: 1em;
   }
@@ -582,13 +604,8 @@ footer {
     }
   }
 
-  .product-id {
-    grid-area: productId;
-
-    margin-left: 0.5em;
-    @include breakpoint(medium) {
-      margin-left: 0;
-    }
+  .product-buyBtn {
+    height: 3em;
   }
 
   .product-tags {
@@ -602,6 +619,15 @@ footer {
       margin-right: 0.5em;
     }
   }
+  .product-id {
+    grid-area: productId;
+
+    margin-left: 0.5em;
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
+  }
+
   .product-reviews {
     grid-area: customerReviews;
     h2 {
@@ -632,4 +658,174 @@ footer {
 .contact-content {
   max-width: 550px;
   margin: 1.35em auto;
+}
+
+// --- Checkout --- //
+
+.cart {
+  .cart-container {
+    display: flex;
+    flex-direction: column;
+
+    article {
+      display: grid;
+      grid-template-areas:
+        "img title title"
+        "img description description"
+        "quantity price removeBtn";
+      grid-template-columns: 7em auto 3em;
+      grid-template-rows: 2.5em 5.5em 2.5em;
+      padding: 0.5em;
+      background-color: $col-forth;
+      border-radius: $radius-sm;
+      margin-bottom: 1em;
+
+      //   @include breakpoint(medium) {
+      //     grid-template-areas:
+      //       "img title title"
+      //       "img description price"
+      //       ". . removeBtn";
+      //   }
+
+      a {
+        height: 100%;
+        grid-area: img;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          box-shadow: $shadow-sm rgb(150, 150, 150);
+          border-radius: $radius-sm;
+        }
+      }
+      .cart-title {
+        grid-area: title;
+        font-weight: bold;
+        margin-left: 1em;
+        height: fit-content;
+        font-size: 0.85rem;
+      }
+      .cart-description {
+        grid-area: description;
+        margin-left: 1em;
+        margin: 0 0 0 1em;
+        font-size: 0.75rem;
+      }
+
+      @include breakpoint(small) {
+        .cart-title {
+          font-size: 1rem;
+        }
+        .cart-description {
+          font-size: 0.85rem;
+        }
+      }
+
+      .cart-remove-item {
+        grid-area: removeBtn;
+        width: 2.25em;
+        height: 2.25em;
+        font-size: 0.85rem;
+        border-radius: 50%;
+        margin: auto 0 0 auto;
+        background-color: white;
+        color: black;
+      }
+
+      .cart-quantity-container {
+        grid-area: quantity;
+        display: flex;
+        align-items: center;
+        margin-top: auto;
+        * {
+          height: 2em;
+        }
+
+        button {
+          padding: 1em;
+          height: 0;
+          width: 0;
+          color: black;
+          background-color: $col-white;
+
+          span {
+            font-size: 1rem;
+          }
+        }
+
+        .cart-quantity-subtract {
+          border-radius: $radius-sm 0 0 $radius-sm;
+        }
+        input {
+          width: 3em;
+          border: none;
+          border-radius: 0;
+          text-align: center;
+        }
+        .cart-quantity-addition {
+          border-radius: 0 $radius-sm $radius-sm 0;
+        }
+      }
+      .cart-price-container {
+        grid-area: price;
+        display: flex;
+        align-items: center;
+        margin-top: auto;
+        height: 2em;
+        .cart-price {
+          font-weight: bolder;
+          margin-left: auto;
+        }
+      }
+    }
+  }
+
+  .cart-empty-cart-btn {
+    height: 2.5em;
+    width: 7.5em;
+    background-color: red;
+    color: white;
+    margin-bottom: 3em;
+  }
+
+  .cart-summary {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 550px;
+    padding: 1em;
+    margin: 0 auto 1em auto;
+    background-color: $col-forth;
+    border-radius: $radius-sm;
+
+    h2,
+    p {
+      text-align: center;
+    }
+
+    .cart-summary-price {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      width: 14em;
+
+      .cart-full-price,
+      .cart-total-discount,
+      .cart-final-price {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0.5em;
+        border-radius: $radius-sm;
+        margin-bottom: 0.5em;
+      }
+    }
+    .cart-total-discount {
+      background-color: $col-third;
+    }
+
+    .cart-checkout-btn {
+      height: 3em;
+    }
+  }
 }

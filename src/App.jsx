@@ -12,22 +12,25 @@ import {
   Contact,
   Cart,
 } from "./pages/";
+import { CartProvider } from "./contexts/CartContext";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="products" element={<Products />} />
-          <Route path="product/:id" element={<Product />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="*" element={<RouteNotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <CartProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="products" element={<Products />} />
+            <Route path="product/:id" element={<Product />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="*" element={<RouteNotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 

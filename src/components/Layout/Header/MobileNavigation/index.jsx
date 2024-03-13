@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../../../../contexts/CartContext";
 import HamburgerMenu from "../HamburgerMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,6 +10,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function MobileNavigation({ onSearchClick }) {
+  const { cartItems } = useCart();
+  const totalQuantity = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
   return (
     <React.Fragment>
       <section className="mobile-navigation">
@@ -29,11 +36,16 @@ function MobileNavigation({ onSearchClick }) {
                 Search
               </button>
             </li>
-            <li>
-              <Link to="/cart">
+            <li className="cart-list">
+              <Link to="/checkout">
                 <FontAwesomeIcon icon={faShoppingCart} />
                 Cart
               </Link>
+              {totalQuantity > 0 && (
+                <div className="cart-badge">
+                  <span>{totalQuantity}</span>
+                </div>
+              )}
             </li>
           </ul>
         </nav>
