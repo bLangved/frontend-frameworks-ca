@@ -103,9 +103,11 @@ function Checkout() {
                     <span>{finalPrice.toFixed(2)},-</span>
                   </div>
                 </div>
-                <button className="cart-checkout-btn">
-                  Proceed to checkout
-                </button>
+                <Link to={"/checkoutSuccess"}>
+                  <button onClick={clearCart} className="cart-checkout-btn">
+                    Proceed to checkout
+                  </button>
+                </Link>
               </section>
             </>
           )}

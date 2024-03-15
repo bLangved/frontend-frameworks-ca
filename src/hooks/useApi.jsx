@@ -9,7 +9,7 @@ function useApi(url) {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    let isMounted = true; // To prevent state update if the component is unmounted
+    let isMounted = true;
 
     async function getData() {
       if (!isMounted) return;
@@ -17,14 +17,18 @@ function useApi(url) {
       try {
         setIsLoading(true);
         setIsError(false);
-        const fetchedData = await fetch(url);
-        const json = await fetchedData.json();
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const json = await response.json();
         if (isMounted) {
           setData(json);
         }
       } catch (error) {
         if (isMounted) {
-          console.log(error);
+          console.error("Fetching error:", error);
           setIsError(true);
         }
       } finally {

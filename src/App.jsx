@@ -8,6 +8,7 @@ import {
   Products,
   Product,
   Checkout,
+  CheckoutSuccess,
   RouteNotFound,
   Contact,
   Cart,
@@ -25,6 +26,7 @@ function App() {
             <Route path="product/:id" element={<Product />} />
             <Route path="contact" element={<Contact />} />
             <Route path="checkout" element={<Checkout />} />
+            <Route path="checkoutSuccess" element={<CheckoutSuccess />} />
             <Route path="cart" element={<Cart />} />
             <Route path="*" element={<RouteNotFound />} />
           </Route>

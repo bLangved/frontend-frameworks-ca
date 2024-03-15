@@ -29,6 +29,10 @@ function ApiCall() {
               <img src={item.image.url} alt={item.image.alt} />
             </div>
             <span className="card-title">{item.title}</span>
+            <div className="star-rating">
+              <StarRating rating={item.rating} />
+              <span className="card-reviews">({item.reviews.length})</span>
+            </div>
             <div className="card-price-wrapper">
               {item.discountedPrice !== item.price && (
                 <>
@@ -48,10 +52,6 @@ function ApiCall() {
                   <span className="card-price">{item.discountedPrice},-</span>
                 </>
               )}
-            </div>
-            <div className="star-rating">
-              <StarRating rating={item.rating} />
-              <span className="card-reviews">({item.reviews.length})</span>
             </div>
             <Link to={`/product/${item.id}`} key={item.id}>
               <button>View product</button>

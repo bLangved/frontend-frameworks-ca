@@ -63,6 +63,114 @@
     display: block;
   }
 }
+.search-results-container {
+  display: none;
+  position: absolute;
+  background: $col-white;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+  z-index: 100;
+  box-shadow: 0 0 3px solid lightgray;
+
+  &.show {
+    display: block;
+  }
+
+  .search-close {
+    background: $col-forth;
+    height: 1.5em;
+    width: 1.5em;
+    border-radius: $radius-circle;
+    color: black;
+    margin-left: auto;
+  }
+
+  .search-results {
+    display: flex;
+    flex-direction: column;
+
+    .search-item {
+      display: flex;
+      align-items: center;
+      height: 4em;
+      width: 100%;
+      border-radius: $radius-sm;
+      background-color: $col-white;
+      margin-bottom: 0.5em;
+      transition: transform 0.2s ease-in-out;
+      font-size: 0.8rem;
+      @include breakpoint(x-small) {
+        font-size: 0.9rem;
+      }
+      @include breakpoint(small) {
+        font-size: 1rem;
+      }
+
+      &:hover {
+        transform: scale(101%);
+        transition: transform 0.2s ease-in-out;
+      }
+
+      img {
+        height: 100%;
+        min-width: 4em;
+        width: 4em;
+        object-fit: cover;
+        border-radius: 5px 0 0 5px;
+      }
+
+      .search-title {
+        margin-left: 0.5em;
+        max-width: 6em;
+
+        @include breakpoint(x-small) {
+          max-width: 10em;
+        }
+      }
+
+      .search-price-wrapper {
+        position: relative;
+        margin: 0 0.5em 0 auto;
+
+        .search-price-container {
+          display: flex;
+          flex-direction: column;
+
+          span {
+            margin-left: auto;
+          }
+
+          .search-price-discounted {
+            text-decoration: line-through;
+            text-decoration-color: rgb(80, 80, 80);
+          }
+          .search-price {
+            color: green;
+          }
+        }
+      }
+    }
+  }
+}
+
+.search-alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  border-radius: $radius-sm;
+  z-index: 100;
+  box-shadow: $shadow-md;
+  padding: 1em;
+  background-color: $col-near-white;
+
+  p {
+    padding: 2em;
+  }
+}
 
 // --- Globals end--- //
 
@@ -376,7 +484,7 @@ footer {
     @include breakpoint(x-small) {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 5em 3em 4em 3em;
+      grid-template-rows: 5em 2em 3em 3em;
       grid-template-areas:
         "image  name"
         "image  rating"
@@ -444,23 +552,24 @@ footer {
       .card-price-discounted-percentage {
         border-radius: $radius-circle;
         background-color: red;
-        height: 3em;
-        width: 3em;
+        height: 2.5em;
+        width: 2.5em;
         position: absolute;
-        top: -210px;
+        top: -245px;
         right: 7px;
-        box-shadow: 0 0 3px 1px rgb(180, 0, 0);
+        box-shadow: 0 0 2px 1px rgb(180, 0, 0);
         display: flex;
         align-items: center;
         justify-content: center;
         span {
           color: white;
           font-weight: bold;
+          font-size: 0.85rem;
         }
 
         @include breakpoint(x-small) {
-          top: -135px;
-          left: -64px;
+          top: -120px;
+          left: -56px;
         }
       }
 
@@ -680,16 +789,17 @@ footer {
       border-radius: $radius-sm;
       margin-bottom: 1em;
 
-      //   @include breakpoint(medium) {
-      //     grid-template-areas:
-      //       "img title title"
-      //       "img description price"
-      //       ". . removeBtn";
-      //   }
+      @include breakpoint(medium) {
+        grid-template-areas:
+          "img title title title"
+          "img description description description"
+          "img quantity price removeBtn";
+        grid-template-columns: 12em auto auto 3em;
+      }
 
       a {
-        height: 100%;
         grid-area: img;
+        height: 100%;
         img {
           height: 100%;
           width: 100%;
@@ -707,7 +817,6 @@ footer {
       }
       .cart-description {
         grid-area: description;
-        margin-left: 1em;
         margin: 0 0 0 1em;
         font-size: 0.75rem;
       }
@@ -720,7 +829,6 @@ footer {
           font-size: 0.85rem;
         }
       }
-
       .cart-remove-item {
         grid-area: removeBtn;
         width: 2.25em;
@@ -736,7 +844,12 @@ footer {
         grid-area: quantity;
         display: flex;
         align-items: center;
-        margin-top: auto;
+        margin: auto 0 0 0;
+
+        @include breakpoint(medium) {
+          margin: auto 0 0 1em;
+        }
+
         * {
           height: 2em;
         }
@@ -824,8 +937,36 @@ footer {
       background-color: $col-third;
     }
 
-    .cart-checkout-btn {
+    a {
+      .cart-checkout-btn {
+        width: 100%;
+        height: 3em;
+      }
+    }
+  }
+}
+
+// --- CheckoutSuccess --- //
+
+.checkoutsuccess-content {
+  max-width: 40em;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  section {
+    :not(:nth-child(2)) {
+      text-align: center;
+    }
+  }
+  a {
+    width: 100%;
+    max-width: 480px;
+    button {
       height: 3em;
+      width: 100%;
+      margin-bottom: 1em;
     }
   }
 }
