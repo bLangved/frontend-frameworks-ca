@@ -3,467 +3,319 @@
 @import "breakpoints";
 @import "variables";
 
-// --- Globals --- //
-.star-rating {
-  grid-area: rating;
-  display: flex;
-  gap: 0.5em;
+/* --- --- HOME --- --- */
 
-  .stars {
+.hero-wrapper {
+  display: flex;
+  margin-top: 1em;
+  z-index: $index-1;
+  cursor: default;
+
+  @include breakpoint(large) {
+    margin-top: 0;
+  }
+
+  .hero {
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
+    background: $col-third;
 
-    .star {
-      position: relative;
-      width: 20px;
-      height: 20px;
-
-      img {
-        width: 100%;
-        height: 100%;
-        opacity: 0.3;
-      }
-    }
-    .star-full img {
-      opacity: 1;
-    }
-    .star-one-quarter::before,
-    .star-half::before,
-    .star-three-quarter::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      background: orange;
-      mask: url("/icons/star.svg");
-      mask-size: cover;
-      opacity: 1;
-    }
-    .star-one-quarter::before {
-      width: 25%;
-    }
-    .star-half::before {
-      width: 50%;
-    }
-    .star-three-quarter::before {
-      width: 75%;
-    }
-  }
-}
-
-.hr-break {
-  opacity: 0.25;
-  width: 97.5%;
-}
-
-.hr-desktop {
-  display: none;
-  @include breakpoint(large) {
-    display: block;
-  }
-}
-.search-results-container {
-  display: none;
-  position: absolute;
-  background: $col-white;
-  width: 100%;
-  height: 100%;
-  padding: 1em;
-  z-index: 100;
-  box-shadow: 0 0 3px solid lightgray;
-
-  &.show {
-    display: block;
-  }
-
-  .search-close {
-    background: $col-forth;
-    height: 1.5em;
-    width: 1.5em;
-    border-radius: $radius-circle;
-    color: black;
-    margin-left: auto;
-  }
-
-  .search-results {
-    display: flex;
-    flex-direction: column;
-
-    .search-item {
+    .hero-title {
       display: flex;
-      align-items: center;
-      height: 4em;
-      width: 100%;
-      border-radius: $radius-sm;
-      background-color: $col-white;
-      margin-bottom: 0.5em;
-      transition: transform 0.2s ease-in-out;
-      font-size: 0.8rem;
-      @include breakpoint(x-small) {
-        font-size: 0.9rem;
+      flex-direction: column;
+      width: 3.5em;
+      color: $col-primary;
+
+      :first-child {
+        font-size: 1.25rem;
       }
-      @include breakpoint(small) {
-        font-size: 1rem;
+      :nth-child(2) {
+        margin-left: auto;
+        font-size: 1.75rem;
       }
-
-      &:hover {
-        transform: scale(101%);
-        transition: transform 0.2s ease-in-out;
-      }
-
-      img {
-        height: 100%;
-        min-width: 4em;
-        width: 4em;
-        object-fit: cover;
-        border-radius: 5px 0 0 5px;
-      }
-
-      .search-title {
-        margin-left: 0.5em;
-        max-width: 6em;
-
-        @include breakpoint(x-small) {
-          max-width: 10em;
-        }
-      }
-
-      .search-price-wrapper {
-        position: relative;
-        margin: 0 0.5em 0 auto;
-
-        .search-price-container {
-          display: flex;
-          flex-direction: column;
-
-          span {
-            margin-left: auto;
-          }
-
-          .search-price-discounted {
-            text-decoration: line-through;
-            text-decoration-color: rgb(80, 80, 80);
-          }
-          .search-price {
-            color: green;
-          }
-        }
-      }
+    }
+    .hero-image {
+      width: 3.5em;
     }
   }
 }
+// PROMO BANNER
+.promo-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  background: linear-gradient(45deg, $col-primary 50%, $col-near-black 50%);
+  color: $col-near-white;
+  margin: 1em 0;
+  padding: 1em;
+  cursor: default;
 
-.search-alert {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  h2 {
+    margin: 0.25em 0;
+  }
+  span {
+    font-size: 2.5rem;
+  }
+}
+
+// CARDS
+.card,
+.card-focus,
+.card-focus2 {
   display: flex;
   flex-direction: column;
-  border-radius: $radius-sm;
-  z-index: 100;
-  box-shadow: $shadow-md;
-  padding: 1em;
-  background-color: $col-near-white;
+  gap: 0.5em;
+  box-shadow: 1px 1px 10px $col-forth;
+  transition: outline 0.05s ease-in-out;
 
-  p {
-    padding: 2em;
+  &:hover {
+    outline: 3px solid $col-primary;
+    transition: outline 0.05s ease-in-out;
+    border-radius: 3px;
   }
-}
 
-// --- Globals end--- //
-
-header {
-  .banner {
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-areas:
-      "logo"
-      "searchbar"
-      "mobile-navigation";
-    max-width: 1200px;
-
-    @include breakpoint(large) {
-      grid-template-columns: 15em auto 15em;
-      grid-template-areas:
-        "logo searchbar desktop-navigation"
-        "desktop-navigation-bottom desktop-navigation-bottom desktop-navigation-bottom";
-      align-items: center;
-      height: 7.5em;
-      margin: 0 auto;
-    }
-    .banner-logo {
-      grid-area: logo;
-      margin: 1em auto;
-      height: 5em;
-      width: 10em;
-      img {
-        height: 100%;
-        width: 100%;
-      }
-
-      @include breakpoint(large) {
-        height: 4em;
-        width: 8em;
-        margin: 0 auto;
-      }
-    }
-
-    .searchbar {
-      grid-area: searchbar;
-      margin: 0 0.75em;
-
-      input {
-        width: 100%;
-      }
-
-      @include breakpoint(large) {
-        display: flex;
-        align-items: center;
-        height: 5em;
-
-        input {
-          padding: 0.75em 0.5em;
-        }
-      }
-    }
-
-    .desktop-navigation {
-      grid-area: desktop-navigation;
-      height: 5em;
-      display: none;
-      @include breakpoint(large) {
-        display: block;
-      }
-
-      nav {
-        height: 100%;
-        ul {
-          height: 100%;
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          align-items: center;
-          li {
-            margin: 0 auto;
-            a {
-              display: flex;
-              flex-direction: column;
-            }
-          }
-        }
-      }
-    }
-
-    .desktop-navigation-bottom {
-      grid-area: desktop-navigation-bottom;
-      height: 2em;
-      display: none;
-      @include breakpoint(large) {
-        display: block;
-      }
-      nav {
-        margin-left: 3.5em;
-        ul {
-          display: flex;
-          gap: 1.5em;
-          li {
-            font-weight: bold;
-          }
-        }
-      }
-    }
-
-    .mobile-navigation {
-      position: fixed;
-      bottom: 0;
+  .card-image-wrapper,
+  .card-focus-image-wrapper,
+  .card-focus2-image-wrapper {
+    grid-area: image;
+    height: 100%;
+    width: 100%;
+    img {
+      box-sizing: content-box;
+      height: 100%;
       width: 100%;
-      z-index: 100;
-      background-color: $col-primary;
-
-      @include breakpoint(large) {
-        display: none;
-      }
-
-      nav {
-        ul {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          align-items: center;
-          height: 4.25em;
-          li {
-            margin: 0 auto;
-            color: white;
-            a {
-              svg {
-                height: 1em;
-              }
-            }
-            button {
-              padding: 0;
-            }
-          }
-          .cart-list {
-            position: relative;
-            .cart-badge {
-              display: grid;
-              place-content: center;
-              position: absolute;
-              top: -10px;
-              right: 28px;
-              padding: 0.75em;
-              height: 1em;
-              width: 1em;
-              border-radius: 50%;
-              background: red;
-              color: white;
-
-              span {
-                font-size: 0.75rem;
-              }
-            }
-          }
-
-          &:first-child {
-            .hamburger-button {
-              padding: 0;
-              display: flex;
-              img {
-                height: 1em;
-                width: 1.25em;
-              }
-            }
-            nav {
-              background-color: #f9f9f9;
-              position: fixed;
-              top: 0;
-              left: 0;
-              height: calc(100vh - 4.25em);
-              width: 0;
-              overflow-x: hidden;
-              transition: width 0.2s ease-in-out;
-
-              &.open {
-                width: 100%;
-                transition: width 0.2s ease-in-out;
-
-                ul {
-                  li {
-                    opacity: 1;
-                    transition: opacity 0.6s ease-in-out;
-                  }
-                }
-              }
-
-              .nav-header {
-                display: flex;
-                align-items: center;
-                height: 2.5em;
-                background-color: $col-forth;
-
-                button {
-                  margin: 0 0.5em 0 auto;
-                  background: transparent;
-                  img {
-                    height: 1.25em;
-                  }
-                }
-              }
-
-              ul {
-                display: flex;
-                flex-direction: column;
-                li {
-                  opacity: 0;
-                  transition: opacity 0.2s ease-in-out;
-                  padding: 1em;
-                  font-size: 1rem;
-                  color: black;
-                  width: 100%;
-                  border-bottom: 1px solid $col-forth;
-                }
-              }
-            }
-          }
-        }
-      }
+      object-fit: cover;
     }
   }
-}
+  .card-title,
+  .card-focus-title,
+  .card-focus2-title {
+    grid-area: name;
+    font-weight: 700;
+    margin-top: 0.5em;
+    height: 2.5em;
+  }
 
-footer {
-  background-color: rgb(66, 60, 60);
-  width: 100%;
-  color: $col-forth;
-  .footer-content {
-    max-width: 1200px;
+  .card-price-wrapper,
+  .card-focus-price-wrapper,
+  .card-focus2-price-wrapper {
+    grid-area: price;
+    position: relative;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    padding: 1em;
-
-    h2 {
-      grid-area: heading;
+    margin-top: auto;
+    height: 3em;
+    .card-price-discounted,
+    .card-focus-price-discounted,
+    .card-focus2-price-discounted {
+      text-decoration: line-through;
+      text-decoration-color: gray;
     }
 
-    .footer-links {
-      @include breakpoint(large) {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-areas:
-          "account help information"
-          "copyright copyright copyright";
-        //   margin: 0 auto;
-        justify-content: space-around;
+    .card-price,
+    .card-focus-price,
+    .card-focus2-price {
+      margin-top: auto;
+    }
+  }
+
+  .card-price-discounted-percentage,
+  .card-focus-price-discounted-percentage,
+  .card-focus2-price-discounted-percentage {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: $index-2;
+    background: $col-third;
+    height: 2em;
+    width: 4em;
+
+    span {
+      font-size: 1rem;
+      color: $col-primary;
+      font-weight: bold;
+    }
+  }
+  .card-price-discounted,
+  .card-focus-price-discounted,
+  .card-focus2-price-discounted {
+    margin-top: auto;
+    font-size: 0.9rem;
+
+    .card-price,
+    .card-focus-price,
+    .card-focus2-price {
+      margin-top: auto;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+  }
+  .star-rating {
+    .card-focus-reviews {
+      margin: auto 0;
+    }
+  }
+  button {
+    grid-area: calltoaction;
+    margin-top: auto;
+    font-size: 0.9rem;
+  }
+}
+
+// CARDS FOCUS
+.cards-focus-wrapper {
+  display: block;
+  margin: 0 0.5em;
+
+  @media screen and (min-width: 1200px) {
+    margin: 0;
+  }
+
+  @include breakpoint(large) {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(2, 13em);
+    grid-template-areas:
+      "focus1 focus2"
+      "focus1 focus2";
+  }
+}
+
+.card-focus,
+.card-focus2 {
+  background: $col-near-black;
+  color: $col-white;
+
+  @include breakpoint(medium) {
+    padding-right: 0.5em;
+  }
+}
+
+.card-focus {
+  grid-area: focus1;
+  @include breakpoint(medium) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "image  name"
+      "image  description"
+      "image  rating"
+      "image  price"
+      "image  calltoaction";
+    height: 26em;
+  }
+  @include breakpoint(large) {
+    margin-right: 0.5em;
+  }
+  .card-focus-image-wrapper {
+    height: 20em;
+    @include breakpoint(medium) {
+      height: 26em;
+    }
+  }
+
+  .card-focus-title {
+    font-size: 1.75rem;
+    margin-left: 0.4em;
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
+  }
+
+  .card-focus-description {
+    grid-area: description;
+    height: 4em;
+    margin-left: 0.5em;
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
+  }
+
+  .card-focus-price-wrapper {
+    margin-left: 0.5em;
+    @include breakpoint(medium) {
+      margin-left: 0;
+    }
+    .card-focus-price-discounted-percentage {
+      height: 2.5em;
+      width: 5em;
+      top: -552px;
+      right: 0;
+      span {
+        font-size: 1.25rem;
       }
 
-      article {
-        display: flex;
-        flex-direction: column;
-
-        ul {
-          margin-bottom: 1em;
-          li {
-            margin-bottom: 1em;
-          }
-        }
-      }
-
-      .footer-account {
-        grid-area: account;
-      }
-      .footer-help {
-        grid-area: help;
-      }
-      .footer-information {
-        grid-area: information;
+      @include breakpoint(medium) {
+        top: -285px;
+        left: -88px;
       }
     }
   }
-  .footer-copyright {
-    grid-area: copyright;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 4em;
-    margin-bottom: 4em;
-    background-color: rgb(30, 30, 30);
-    span {
-      font-size: 1.25rem;
-      padding: 1em;
+  .star-rating {
+    margin-left: 0.5em;
+    @include breakpoint(medium) {
+      margin-left: 0;
     }
-    @include breakpoint(large) {
-      margin-bottom: 0;
+    .stars {
+      .star {
+        width: 30px;
+        height: 30px;
+      }
     }
+  }
+  @include breakpoint(medium) {
+    button {
+      margin: auto 0 0.5em 0;
+    }
+  }
+}
+
+.cards-focus2-container {
+  display: none;
+  grid-area: focus2;
+  @include breakpoint(large) {
+    display: grid;
+    grid-template-rows: 12.75em 12.75em;
+    gap: 0.5em;
+  }
+
+  .card-focus2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "image name"
+      "image rating"
+      "image price"
+      "image calltoaction";
+    height: 12.75em;
+
+    .card-focus2-image-wrapper {
+      height: 12.75em;
+    }
+    .card-focus2-price-wrapper {
+      .card-focus2-price-discounted-percentage {
+        top: -84px;
+        left: -72px;
+      }
+    }
+  }
+  button {
+    margin: auto 0 0.5em 0;
   }
 }
 
 .card-container {
   display: flex;
   flex-direction: column;
-  gap: 1em;
-  margin-bottom: 1em;
-
+  gap: 0.5em;
+  margin: 0 0.5em 1em;
   @include breakpoint(medium) {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -472,67 +324,35 @@ footer {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  @media screen and (min-width: 1200px) {
+    margin: 0 0 1em;
+  }
+
   .card {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    border-radius: $radius-sm;
-    width: 100%;
     background: $col-white;
-    box-shadow: 0 0 5px lightgray;
+    color: $col-black;
 
     @include breakpoint(x-small) {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 5em 2em 3em 3em;
       grid-template-areas:
         "image  name"
         "image  rating"
         "image  price"
         "image  calltoaction";
       gap: 0.5em;
-      padding: 0.5em;
-
-      &:hover {
-        .card-image-wrapper {
-          img {
-            transform: scale(101%);
-            opacity: 1;
-            transition: transform 0.6s ease, opacity 0.6s ease;
-          }
-        }
-      }
+      padding-right: 0.5em;
     }
 
     .card-image-wrapper {
-      grid-area: image;
       height: 10em;
-      width: 100%;
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        opacity: 1;
-        border-radius: $radius-sm-top;
-        box-shadow: 0 0 5px lightgray;
-        transition: transform 0.6s ease, opacity 0.6s ease;
-      }
       @include breakpoint(x-small) {
-        height: 100%;
-        width: auto;
-        img {
-          height: 100%;
-          opacity: 0.8;
-          border-radius: $radius-sm;
-        }
+        height: 14em;
       }
     }
 
     .card-title {
-      grid-area: name;
       font-size: 1.25rem;
-      font-weight: 700;
-
       margin-left: 0.4em;
       @include breakpoint(x-small) {
         margin-left: 0;
@@ -540,47 +360,19 @@ footer {
     }
 
     .card-price-wrapper {
-      position: relative;
-      grid-area: price;
-      display: flex;
-      flex-direction: column;
       margin-left: 0.5em;
       @include breakpoint(x-small) {
         margin-left: 0;
       }
 
       .card-price-discounted-percentage {
-        border-radius: $radius-circle;
-        background-color: red;
-        height: 2.5em;
-        width: 2.5em;
-        position: absolute;
-        top: -245px;
-        right: 7px;
-        box-shadow: 0 0 2px 1px rgb(180, 0, 0);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        span {
-          color: white;
-          font-weight: bold;
-          font-size: 0.85rem;
-        }
+        top: -254px;
+        right: 0;
 
         @include breakpoint(x-small) {
-          top: -120px;
-          left: -56px;
+          top: -102px;
+          left: -72px;
         }
-      }
-
-      .card-price-discounted {
-        margin-top: auto;
-        font-size: 0.9rem;
-      }
-      .card-price {
-        margin-top: auto;
-        font-size: 1.25rem;
-        font-weight: bold;
       }
     }
     .star-rating {
@@ -588,29 +380,16 @@ footer {
       @include breakpoint(x-small) {
         margin-left: 0;
       }
-      .card-reviews {
-        margin: auto 0;
-      }
     }
-
-    a {
-      grid-area: calltoaction;
-      margin-top: auto;
-      width: 100%;
-      button {
-        width: 100%;
-        height: 3em;
-        font-size: 0.9rem;
-        border-radius: $radius-sm-bottom;
-
-        @include breakpoint(x-small) {
-          border-radius: $radius-sm;
-        }
+    button {
+      @include breakpoint(x-small) {
+        margin: auto 0 0.5em 0;
       }
     }
   }
 }
 
+/* --- --- PRODUCT --- --- */
 .product {
   display: flex;
   flex-direction: column;
@@ -643,7 +422,6 @@ footer {
     height: 20em;
     width: 100%;
     object-fit: cover;
-    box-shadow: $shadow-md $col-forth;
 
     @include breakpoint(medium) {
       border-radius: $radius-sm;
@@ -681,13 +459,12 @@ footer {
 
     .product-price-discounted-percentage {
       border-radius: $radius-circle;
-      background-color: red;
+      background: red;
       height: 3em;
       width: 3em;
       position: absolute;
       top: -210px;
       right: 7px;
-      box-shadow: 0 0 3px 1px rgb(180, 0, 0);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -745,7 +522,7 @@ footer {
     .review {
       padding: 1em;
       margin-bottom: 1em;
-      background-color: #efefef;
+      background: #efefef;
 
       .star-rating {
         margin-left: 0;
@@ -762,16 +539,26 @@ footer {
   }
 }
 
-// --- Contact --- //
+// --- --- CONTACT --- --- //
 
 .contact-content {
   max-width: 550px;
   margin: 1.35em auto;
 }
 
-// --- Checkout --- //
+// --- --- CHECKOUT --- --- //
 
 .cart {
+  margin: 0 0.5em;
+  h1 {
+    text-align: center;
+  }
+  .cart-empty-cart-btn {
+    background: red;
+    color: white;
+    margin: 0 0 0.5em auto;
+    width: 7.5em;
+  }
   .cart-container {
     display: flex;
     flex-direction: column;
@@ -785,9 +572,12 @@ footer {
       grid-template-columns: 7em auto 3em;
       grid-template-rows: 2.5em 5.5em 2.5em;
       padding: 0.5em;
-      background-color: $col-forth;
-      border-radius: $radius-sm;
-      margin-bottom: 1em;
+      background: $col-forth;
+      margin-bottom: 0.5em;
+
+      &:last-of-type {
+        margin-bottom: 1em;
+      }
 
       @include breakpoint(medium) {
         grid-template-areas:
@@ -804,7 +594,6 @@ footer {
           height: 100%;
           width: 100%;
           object-fit: cover;
-          box-shadow: $shadow-sm rgb(150, 150, 150);
           border-radius: $radius-sm;
         }
       }
@@ -836,7 +625,7 @@ footer {
         font-size: 0.85rem;
         border-radius: 50%;
         margin: auto 0 0 auto;
-        background-color: white;
+        background: white;
         color: black;
       }
 
@@ -859,7 +648,7 @@ footer {
           height: 0;
           width: 0;
           color: black;
-          background-color: $col-white;
+          background: $col-white;
 
           span {
             font-size: 1rem;
@@ -893,14 +682,6 @@ footer {
     }
   }
 
-  .cart-empty-cart-btn {
-    height: 2.5em;
-    width: 7.5em;
-    background-color: red;
-    color: white;
-    margin-bottom: 3em;
-  }
-
   .cart-summary {
     display: flex;
     flex-direction: column;
@@ -908,7 +689,7 @@ footer {
     max-width: 550px;
     padding: 1em;
     margin: 0 auto 1em auto;
-    background-color: $col-forth;
+    background: $col-forth;
     border-radius: $radius-sm;
 
     h2,
@@ -934,7 +715,7 @@ footer {
       }
     }
     .cart-total-discount {
-      background-color: $col-third;
+      background: $col-third;
     }
 
     a {
@@ -946,7 +727,7 @@ footer {
   }
 }
 
-// --- CheckoutSuccess --- //
+// --- --- CHECKOUT SUCCESS --- --- //
 
 .checkoutsuccess-content {
   max-width: 40em;
@@ -964,8 +745,6 @@ footer {
     width: 100%;
     max-width: 480px;
     button {
-      height: 3em;
-      width: 100%;
       margin-bottom: 1em;
     }
   }

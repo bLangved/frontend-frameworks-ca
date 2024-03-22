@@ -1,14 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useApi from "../../hooks/useApi";
+import { API_BASE_URL } from "../../constants/apiUrls";
 import StarRating from "../../components/StarRating";
 import { useCart } from "../../contexts/CartContext";
 
 function Product() {
   let { id } = useParams();
-  const { data, isLoading, isError } = useApi(
-    `https://v2.api.noroff.dev/online-shop/${id}`
-  );
+  const { data, isLoading, isError } = useApi(`${API_BASE_URL}${id}`);
+  const productData = data[0] || {};
   const { addToCart } = useCart();
 
   if (isLoading) {
@@ -18,8 +18,6 @@ function Product() {
   if (isError || !data) {
     return <div>Error</div>;
   }
-
-  // console.log(data.data);
   const {
     id: productId,
     title,
@@ -30,7 +28,7 @@ function Product() {
     rating,
     tags,
     reviews,
-  } = data.data;
+  } = productData;
 
   const imageUrl = image?.url;
   const imageAlt = image?.alt || "Product Image";
@@ -55,13 +53,6 @@ function Product() {
 
   return (
     <article className="product">
-      {/* {data.data.map((item) => {
-        const discountPercentage =
-          ((Number(item.price) - Number(item.discountedPrice)) /
-            Number(item.price)) *
-          100;
-} */}
-
       <img className="product-image" src={imageUrl} alt={imageAlt} />
       <h1 className="product-title header">{title}</h1>
       <p className="product-description">{description}</p>
@@ -71,9 +62,6 @@ function Product() {
       <div className="product-price-wrapper">
         {price !== discountedPrice && (
           <>
-            {/* <div className="product-price-discounted-percentage">
-                    <span>-{discountPercentage.toFixed(0)}%</span>
-                  </div> */}
             <span className="product-price-discounted">Before: {price},-</span>
             <span className="product-price">Now: {discountedPrice},-</span>
           </>
@@ -84,7 +72,7 @@ function Product() {
           </>
         )}
       </div>
-      <button className="product-buyBtn" onClick={() => addToCart(data.data)}>
+      <button className="product-buyBtn" onClick={() => addToCart(productData)}>
         Add to cart
       </button>
 

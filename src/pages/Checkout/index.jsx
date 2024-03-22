@@ -16,6 +16,7 @@ function Checkout() {
   const totalDiscount = fullPrice - finalPrice;
 
   const truncateText = (text, maxLength) => {
+    if (!text) return "";
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + "...";
   };
@@ -34,6 +35,11 @@ function Checkout() {
         <section>
           <h1 className="heading">Shopping cart</h1>
         </section>
+        {cartItems.length > 0 && (
+          <button className="cart-empty-cart-btn" onClick={clearCart}>
+            Empty cart
+          </button>
+        )}
         <section className="cart-container">
           {cartItems.map((item, index) => (
             <article key={index} className="cart-item">
@@ -84,9 +90,6 @@ function Checkout() {
           ))}
           {cartItems.length > 0 && (
             <>
-              <button className="cart-empty-cart-btn" onClick={clearCart}>
-                Empty cart
-              </button>
               <section className="cart-summary">
                 <h2>Cart summary</h2>
                 <div className="cart-summary-price">

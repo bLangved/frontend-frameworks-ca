@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import SearchController from "./SearchController";
+import Searchbar from "./Searchbar";
 import { Link } from "react-router-dom";
 import MobileNavigation from "./MobileNavigation";
 import DesktopNavigation from "./DesktopNavigation";
@@ -21,13 +21,13 @@ function Header() {
           <Link to="/" title="Home" className="banner-logo">
             <img src="/images/ecom-logo.png" alt="Brand Logo" />
           </Link>
-          <SearchController ref={searchRef} />
+          <Searchbar ref={searchRef} />
           <MobileNavigation onSearchClick={focusSearchbar} />
           <DesktopNavigation />
           <DesktopNavigationBottom />
         </div>
       </header>
-      <hr className="hr-break hr-desktop" />
+      {/* <hr className="hr-break hr-desktop" /> */}
     </React.Fragment>
   );
 }

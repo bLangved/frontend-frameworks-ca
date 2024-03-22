@@ -24,30 +24,403 @@ body {
   margin: 4em 0 0 0;
   margin: 0;
   padding: 0;
-
-  // @include breakpoint(large) {
-  //   grid-template-areas:
-  //     "banner"
-  //     "content"
-  //     "footer";
-  // }
 }
 
 header {
   grid-area: banner;
+  .banner {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "logo"
+      "searchbar"
+      "mobile-navigation";
+    max-width: 1200px;
+
+    @include breakpoint(large) {
+      grid-template-columns: 15em auto 15em;
+      grid-template-areas:
+        "logo searchbar desktop-navigation"
+        "desktop-navigation-bottom desktop-navigation-bottom desktop-navigation-bottom";
+      align-items: center;
+      height: 7.5em;
+      margin: 0 auto;
+    }
+    .banner-logo {
+      grid-area: logo;
+      margin: 1em auto;
+      height: 5em;
+      width: 10em;
+      img {
+        height: 100%;
+        width: 100%;
+      }
+
+      @include breakpoint(large) {
+        height: 4em;
+        width: 8em;
+        margin: 0 auto;
+      }
+    }
+
+    .searchbar {
+      position: relative;
+      grid-area: searchbar;
+      margin: 0 0.75em;
+
+      input {
+        width: 100%;
+      }
+
+      @include breakpoint(large) {
+        display: flex;
+        align-items: center;
+        height: 5em;
+
+        input {
+          padding: 0.75em 0.5em;
+        }
+      }
+    }
+    .search-results-container {
+      position: absolute;
+      top: 10.5em;
+      display: none;
+      background: $col-white;
+      width: 100%;
+      height: 100%;
+      padding: 1em;
+      z-index: $index-9;
+      box-shadow: 0 0 3px rgb(130, 130, 130);
+
+      @include breakpoint(large) {
+        top: 7.5em;
+        left: 50%;
+        right: 50%;
+        transform: translateX(-50%);
+        overflow-y: scroll;
+        max-height: 40em;
+        max-width: 50em;
+      }
+      &.show {
+        display: block;
+      }
+
+      .search-close {
+        background: $col-forth;
+        height: 1.5em;
+        width: 1.5em;
+        border-radius: $radius-circle;
+        color: black;
+        margin-left: auto;
+      }
+
+      .search-results {
+        display: flex;
+        flex-direction: column;
+
+        .search-item {
+          display: flex;
+          align-items: center;
+          height: 4em;
+          width: 100%;
+          border-radius: $radius-sm;
+          background-color: $col-white;
+          margin-bottom: 0.5em;
+          transition: background-color 0.1s ease-in-out;
+          font-size: 0.8rem;
+          @include breakpoint(x-small) {
+            font-size: 0.9rem;
+          }
+          @include breakpoint(small) {
+            font-size: 1rem;
+          }
+
+          &:hover {
+            background-color: rgb(242, 242, 242);
+            transition: background-color 0.1s ease-in-out;
+          }
+
+          img {
+            height: 100%;
+            min-width: 4em;
+            width: 4em;
+            object-fit: cover;
+            border-radius: 5px 0 0 5px;
+          }
+
+          .search-title {
+            margin-left: 0.5em;
+            max-width: 6em;
+
+            @include breakpoint(x-small) {
+              max-width: 10em;
+            }
+          }
+
+          .search-price-wrapper {
+            position: relative;
+            margin: 0 0.5em 0 auto;
+
+            .search-price-container {
+              display: flex;
+              flex-direction: column;
+
+              span {
+                margin-left: auto;
+              }
+
+              .search-price-discounted {
+                text-decoration: line-through;
+                text-decoration-color: rgb(80, 80, 80);
+              }
+              .search-price {
+                color: green;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .desktop-navigation {
+      grid-area: desktop-navigation;
+      height: 5em;
+      display: none;
+      @include breakpoint(large) {
+        display: block;
+      }
+
+      nav {
+        height: 100%;
+        ul {
+          height: 100%;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          align-items: center;
+          li {
+            margin: 0 auto;
+            a {
+              display: flex;
+              flex-direction: column;
+            }
+          }
+        }
+      }
+    }
+
+    .desktop-navigation-bottom {
+      grid-area: desktop-navigation-bottom;
+      height: 2em;
+      display: none;
+      @include breakpoint(large) {
+        display: block;
+      }
+      nav {
+        margin-left: 3.5em;
+        ul {
+          display: flex;
+          gap: 1.5em;
+          li {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .mobile-navigation {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: $index-10;
+      background-color: $col-primary;
+
+      @include breakpoint(large) {
+        display: none;
+      }
+
+      nav {
+        ul {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          align-items: center;
+          height: 4.25em;
+          li {
+            margin: 0 auto;
+            color: white;
+            a {
+              svg {
+                height: 1em;
+              }
+            }
+            button {
+              padding: 0;
+            }
+          }
+          .cart-list {
+            position: relative;
+            .cart-badge {
+              display: grid;
+              place-content: center;
+              position: absolute;
+              top: -10px;
+              right: 28px;
+              padding: 0.75em;
+              height: 1em;
+              width: 1em;
+              border-radius: 50%;
+              background: red;
+              color: white;
+
+              span {
+                font-size: 0.75rem;
+              }
+            }
+          }
+
+          &:first-child {
+            .hamburger-button {
+              padding: 0;
+              display: flex;
+              img {
+                height: 1em;
+                width: 1.25em;
+              }
+            }
+            nav {
+              background-color: #f9f9f9;
+              position: fixed;
+              top: 0;
+              left: 0;
+              height: calc(100vh - 4.25em);
+              width: 0;
+              overflow-x: hidden;
+              transition: width 0.2s ease-in-out;
+
+              &.open {
+                width: 100%;
+                transition: width 0.2s ease-in-out;
+
+                ul {
+                  li {
+                    opacity: 1;
+                    transition: opacity 0.6s ease-in-out;
+                  }
+                }
+              }
+
+              .nav-header {
+                display: flex;
+                align-items: center;
+                height: 2.5em;
+                background-color: $col-forth;
+
+                button {
+                  margin: 0 0.5em 0 auto;
+                  width: fit-content;
+                  background: transparent;
+                  img {
+                    height: 1.25em;
+                  }
+                }
+              }
+
+              ul {
+                display: flex;
+                flex-direction: column;
+                li {
+                  opacity: 0;
+                  transition: opacity 0.2s ease-in-out;
+                  padding: 1em;
+                  font-size: 1rem;
+                  color: black;
+                  width: 100%;
+                  border-bottom: 1px solid $col-forth;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 main {
   grid-area: content;
   margin: 0 auto;
-  padding: 0 0.75em;
   max-width: 1200px;
 }
 
 footer {
   grid-area: footer;
+  background-color: rgb(66, 60, 60);
+  width: 100%;
+  color: $col-forth;
+  .footer-content {
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 1em;
+
+    h2 {
+      grid-area: heading;
+    }
+
+    .footer-links {
+      @include breakpoint(large) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+          "account help information"
+          "copyright copyright copyright";
+        //   margin: 0 auto;
+        justify-content: space-around;
+      }
+
+      article {
+        display: flex;
+        flex-direction: column;
+
+        ul {
+          margin-bottom: 1em;
+          li {
+            margin-bottom: 1em;
+          }
+        }
+      }
+
+      .footer-account {
+        grid-area: account;
+      }
+      .footer-help {
+        grid-area: help;
+      }
+      .footer-information {
+        grid-area: information;
+      }
+    }
+  }
+  .footer-copyright {
+    grid-area: copyright;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4em;
+    margin-bottom: 4em;
+    background-color: rgb(30, 30, 30);
+    span {
+      font-size: 1.25rem;
+      padding: 1em;
+    }
+    @include breakpoint(large) {
+      margin-bottom: 0;
+    }
+  }
 }
 
+// Text and headings
 h1 {
   font-size: $fs-900;
 }
@@ -67,6 +440,7 @@ h3 {
   line-height: 1.6;
 }
 
+// Links, Nav & lists
 a {
   text-decoration: none;
   color: inherit;
@@ -93,6 +467,7 @@ ul {
   }
 }
 
+// Buttons
 button {
   cursor: pointer;
   display: flex;
@@ -100,12 +475,13 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.5em;
+  height: 3em;
+  width: 100%;
   margin: 0;
   border: none;
   font-size: 1rem;
   background: $col-primary;
   color: $col-white;
-  border-radius: $radius-sm;
   transition: opacity 0.2s ease;
 
   &:hover {
@@ -114,6 +490,7 @@ button {
   }
 }
 
+// Forms & input
 input,
 textarea {
   border-radius: 0.25em;
@@ -167,10 +544,9 @@ form {
     }
   }
   button {
-    width: 100%;
-    height: 2.5em;
     margin-bottom: 1em;
   }
+
   .form-alert {
     position: fixed;
     top: 50%;
@@ -179,7 +555,7 @@ form {
     display: flex;
     flex-direction: column;
     border-radius: $radius-sm;
-    z-index: 100;
+    z-index: $index-10;
     box-shadow: $shadow-md;
     padding: 1em;
     background-color: $col-near-white;
@@ -193,12 +569,140 @@ form {
   }
 }
 
+// HR
+hr {
+}
+.hr-break {
+  opacity: 0.25;
+  width: 97.5%;
+}
+
+.hr-desktop {
+  display: none;
+  @include breakpoint(large) {
+    display: block;
+  }
+}
+
+// Special classes
 .overlay {
+  display: none;
   position: fixed;
-  top: 0;
+  top: 10.5em;
+  @include breakpoint(large) {
+    top: 7.5em;
+  }
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 99;
+  z-index: $index-3;
+
+  &.show {
+    display: block;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(50%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.search-alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  border-radius: $radius-sm;
+  z-index: $index-10;
+  box-shadow: $shadow-md;
+  padding: 1em;
+  background-color: $col-near-white;
+
+  p {
+    padding: 2em;
+  }
+}
+
+.star-rating {
+  grid-area: rating;
+  display: flex;
+  gap: 0.5em;
+
+  .stars {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .star {
+      position: relative;
+      padding: 0;
+      width: 20px;
+      height: 20px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+      }
+    }
+    .star-full img {
+      opacity: 1;
+    }
+    .star-one-quarter::before,
+    .star-half::before,
+    .star-three-quarter::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: orange;
+      mask: url("/icons/star.svg");
+      mask-size: cover;
+      opacity: 1;
+    }
+    .star-one-quarter::before {
+      width: 25%;
+    }
+    .star-half::before {
+      width: 50%;
+    }
+    .star-three-quarter::before {
+      width: 75%;
+    }
+  }
+}
+
+// Loading effects
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border-left-color: $col-third;
+  animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

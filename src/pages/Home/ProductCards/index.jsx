@@ -1,28 +1,29 @@
-import { Link } from "react-router-dom";
-import useApi from "../../hooks/useApi";
-import StarRating from "../../components/StarRating/";
+import { API_BASE_URL } from "../../../constants/apiUrls";
+import useApiFetcher from "../../../hooks/useApiFetcher";
+import { useNavigate } from "react-router-dom";
+import StarRating from "../../../components/StarRating";
+import calculatePercentage from "../../../components/utils/calculatePercentage";
 
-function ApiCall() {
-  const { data, isLoading, isError } = useApi(
-    "https://v2.api.noroff.dev/online-shop"
+function ProductCards() {
+  const navigate = useNavigate();
+  const customError = (
+    <div>There was an error retrieving the products. Please try again</div>
   );
 
-  if (isLoading) {
-    return <div>Loading</div>;
-  }
+  const { data, customComponent } = useApiFetcher(API_BASE_URL, customError);
 
-  if (isError) {
-    return <div>Error</div>;
-  }
+  if (customComponent) return customComponent;
+
+  const newData = data;
+
+  const handleNavigate = (itemId) => {
+    navigate(`/product/${itemId}`);
+  };
 
   return (
     <section className="card-container">
-      {data.data.map((item) => {
-        const discountPercentage =
-          ((Number(item.price) - Number(item.discountedPrice)) /
-            Number(item.price)) *
-          100;
-        // console.log(item);
+      {newData.map((item) => {
+        const discountPercentage = calculatePercentage(item);
         return (
           <div key={item.id} className="card">
             <div className="card-image-wrapper">
@@ -53,9 +54,9 @@ function ApiCall() {
                 </>
               )}
             </div>
-            <Link to={`/product/${item.id}`} key={item.id}>
-              <button>View product</button>
-            </Link>
+            <button onClick={() => handleNavigate(item.id)}>
+              View product
+            </button>
           </div>
         );
       })}
@@ -63,4 +64,4 @@ function ApiCall() {
   );
 }
 
-export default ApiCall;
+export default ProductCards;

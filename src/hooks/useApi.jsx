@@ -1,30 +1,48 @@
 import { useState, useEffect } from "react";
 
 /**
- * @description API hook
+ * Custom hook for fetching data from an API.
+ * Supports fetching single or multiple entries, or performing a search query.
+ *
+ * @param {string} baseUrl - URL endpoint of the API.
+ * @param {string} [searchQuery] - Optional search query for filtering results.
+ * @param {object} [config] - Optional configuration object for additional parameters.
  */
-function useApi(url) {
-  const [data, setData] = useState({ data: [], meta: {} });
+function useApi(baseUrl, searchQuery = "", config = {}) {
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
 
-    async function getData() {
+    const fetchData = async () => {
       if (!isMounted) return;
 
-      try {
-        setIsLoading(true);
-        setIsError(false);
-        const response = await fetch(url);
+      const url = searchQuery
+        ? `${baseUrl}&search=${encodeURIComponent(searchQuery)}`
+        : baseUrl;
 
+      setIsLoading(true);
+      setIsError(false);
+
+      try {
+        const response = await fetch(url, config);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const json = await response.json();
+        const result = await response.json();
+
         if (isMounted) {
-          setData(json);
+          const items = Array.isArray(result.data)
+            ? result.data
+            : [result.data];
+          const filteredData = searchQuery
+            ? items.filter((item) =>
+                item.title.toLowerCase().includes(searchQuery.toLowerCase())
+              )
+            : items;
+          setData(filteredData);
         }
       } catch (error) {
         if (isMounted) {
@@ -34,14 +52,14 @@ function useApi(url) {
       } finally {
         if (isMounted) setIsLoading(false);
       }
-    }
+    };
 
-    getData();
+    fetchData();
 
     return () => {
-      isMounted = false; // Cleanup function to set isMounted false when the component unmounts
+      isMounted = false;
     };
-  }, [url]); // Depend on url, re-run getData when url changes
+  }, [baseUrl, searchQuery, JSON.stringify(config)]);
 
   return { data, isLoading, isError };
 }

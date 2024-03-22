@@ -1,11 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHouse,
-  faMagnifyingGlass,
-  faShoppingCart,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 function DesktopNavigation() {
   return (
@@ -26,7 +22,7 @@ function DesktopNavigation() {
               </Link>
             </li> */}
             <li>
-              <Link to="/cart">
+              <Link to="/checkout">
                 <FontAwesomeIcon icon={faShoppingCart} />
                 Cart
               </Link>

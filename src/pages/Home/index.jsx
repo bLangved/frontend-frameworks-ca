@@ -1,17 +1,41 @@
 import React from "react";
-import ApiCall from "../../products/Cards/";
+import ProductCardFocus from "./ProductCardFocus";
+import ProductCardFocus2 from "./ProductCardFocus2";
+import ProductCards from "./ProductCards";
+import ProductCardsOffers from "./ProductCardsOffers";
 
 function Home() {
   return (
     <React.Fragment>
-      <h1>This is the Home page!</h1>
-      <h2>This is lorem on home</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, atque
-        facilis unde dignissimos possimus molestias a vel at eveniet numquam
-        magnam ea, aliquid, reiciendis voluptas quia eius iste. Libero, nam?
-      </p>
-      <ApiCall />
+      <div className="hero-wrapper">
+        <section className="hero">
+          <h1 className="hero-title">
+            <span>Simplified</span>
+            <span>shopping</span>
+          </h1>
+          <img
+            className="hero-image"
+            src="/images/ecom-logo-default.png"
+            alt="Store logo"
+          />
+        </section>
+      </div>
+      <section className="promo-section">
+        <h2>We recommend</h2>
+      </section>
+      <div className="cards-focus-wrapper">
+        <ProductCardFocus />
+        <ProductCardFocus2 />
+      </div>
+      <section className="promo-section">
+        <h2>This week's offers!</h2>
+        <span>%</span>
+      </section>
+      <ProductCardsOffers />
+      <section className="promo-section">
+        <h2>All our products</h2>
+      </section>
+      <ProductCards />
     </React.Fragment>
   );
 }
