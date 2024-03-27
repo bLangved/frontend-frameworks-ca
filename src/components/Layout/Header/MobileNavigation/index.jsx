@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../../../contexts/CartContext";
-import HamburgerMenu from "../HamburgerMenu";
+import HamburgerMenu from "./HamburgerMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
@@ -40,12 +40,12 @@ function MobileNavigation({ onSearchClick }) {
               <Link to="/checkout">
                 <FontAwesomeIcon icon={faShoppingCart} />
                 Cart
+                {totalQuantity > 0 && (
+                  <div className="cart-badge">
+                    <span>{totalQuantity}</span>
+                  </div>
+                )}
               </Link>
-              {totalQuantity > 0 && (
-                <div className="cart-badge">
-                  <span>{totalQuantity}</span>
-                </div>
-              )}
             </li>
           </ul>
         </nav>

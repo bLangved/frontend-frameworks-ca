@@ -7,6 +7,10 @@
     @media screen and (min-width: 480px) {
       @content;
     }
+  } @else if $breakpoint == smallxl {
+    @media screen and (min-width: 550px) {
+      @content;
+    }
   } @else if $breakpoint == medium {
     @media screen and (min-width: 768px) {
       @content;

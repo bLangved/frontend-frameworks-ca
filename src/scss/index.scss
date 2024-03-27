@@ -1,7 +1,8 @@
 @import "global";
-@import "color-scheme";
 @import "breakpoints";
 @import "variables";
+@import "header";
+@import "footer";
 
 /* --- --- HOME --- --- */
 
@@ -542,8 +543,69 @@
 // --- --- CONTACT --- --- //
 
 .contact-content {
-  max-width: 550px;
-  margin: 1.35em auto;
+  margin: 1em auto 2em;
+  padding: 0 0.75em;
+  max-width: 768px;
+
+  header {
+    h1 {
+      padding: 0em;
+    }
+  }
+
+  .contact-info-section {
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 1em;
+
+    section {
+      background: $col-white;
+      padding: 1em;
+      box-shadow: 0 0 3px $col-forth;
+      border-radius: 5px;
+      header {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        h2 {
+          margin: 0;
+          line-height: 1;
+        }
+        svg {
+          color: $col-primary;
+        }
+      }
+      a {
+        color: $col-primary;
+        text-decoration: underline;
+      }
+      dl {
+        h3 {
+          margin-bottom: 0.25em;
+        }
+        dt {
+          font-weight: bolder;
+        }
+        dd {
+          margin: 0.5em 0;
+        }
+      }
+    }
+    @include breakpoint(medium) {
+      grid-template-columns: 1fr 1fr;
+      section {
+        header {
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  form {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+  }
 }
 
 // --- --- CHECKOUT --- --- //

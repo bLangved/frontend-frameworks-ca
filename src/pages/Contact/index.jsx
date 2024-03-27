@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPhoneVolume,
+  faRectangleList,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -74,14 +80,56 @@ function Contact() {
 
   return (
     <>
-      {isOverlayVisible && <div className="overlay"></div>}
+      {isOverlayVisible && <div className="form-alert"></div>}
       <article className="contact-content">
-        <section>
-          <h2>Contact us</h2>
+        <header>
+          <h1 className="heading">Contact us</h1>
           <p>
-            Let's get this conversation started. Fill out the form below, and we
-            will reply to you as soon as we can.
+            Let's get this conversation started! You can contact us in different
+            ways. Here's what we offer:
           </p>
+        </header>
+        <section className="contact-info-section">
+          <section>
+            <header>
+              <h2>Customer service</h2>
+              <FontAwesomeIcon icon={faPhoneVolume} size="xl" />
+            </header>
+            <p>
+              You are welcome to contact us by phone. We will answer as soon as
+              we are available.
+            </p>
+            <dl>
+              <h3>By phone</h3>
+              <dt>Number:</dt>
+              <dd>+00 00 00 00 00</dd>
+            </dl>
+            <dl>
+              <h3>Opening hours:</h3>
+              <dt>Monday - Friday:</dt>
+              <dd>09.00 - 12.00 & 13.00 - 16.00</dd>
+              <dt>Saturday - Sunday:</dt>
+              <dd>Closed</dd>
+            </dl>
+          </section>
+          <section>
+            <header>
+              <h2>Contact form</h2>
+              <FontAwesomeIcon icon={faRectangleList} size="xl" />
+            </header>
+            <p>
+              Fill out the form below, and we will reply to you as soon as we
+              can. We aim to respond within 24 hours.
+            </p>
+            <p>
+              We recommend checking out our <Link to="*">FAQ section</Link>{" "}
+              before contacting us. Many of our customers find what they are
+              looking for there!
+            </p>
+          </section>
+        </section>
+        <section>
+          <h2></h2>
         </section>
         <form onSubmit={handleSubmit} aria-labelledby="contact-form">
           <fieldset>

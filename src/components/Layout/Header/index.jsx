@@ -3,7 +3,7 @@ import Searchbar from "./Searchbar";
 import { Link } from "react-router-dom";
 import MobileNavigation from "./MobileNavigation";
 import DesktopNavigation from "./DesktopNavigation";
-import DesktopNavigationBottom from "./DesktopNavigationBottom";
+import DesktopNavigationBottom from "./DesktopNavigation/DesktopNavigationBottom";
 
 function Header() {
   const searchRef = useRef(null);
@@ -27,7 +27,6 @@ function Header() {
           <DesktopNavigationBottom />
         </div>
       </header>
-      {/* <hr className="hr-break hr-desktop" /> */}
     </React.Fragment>
   );
 }

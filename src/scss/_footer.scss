@@ -1,0 +1,67 @@
+footer {
+  grid-area: footer;
+  background-color: rgb(66, 60, 60);
+  width: 100%;
+  color: $col-forth;
+  .footer-content {
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 1em;
+
+    h2 {
+      grid-area: heading;
+    }
+
+    .footer-links {
+      @include breakpoint(large) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+          "account help information"
+          "copyright copyright copyright";
+        //   margin: 0 auto;
+        justify-content: space-around;
+      }
+
+      article {
+        display: flex;
+        flex-direction: column;
+
+        ul {
+          margin-bottom: 1em;
+          li {
+            margin-bottom: 1em;
+          }
+        }
+      }
+
+      .footer-account {
+        grid-area: account;
+      }
+      .footer-help {
+        grid-area: help;
+      }
+      .footer-information {
+        grid-area: information;
+      }
+    }
+  }
+  .footer-copyright {
+    grid-area: copyright;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4em;
+    margin-bottom: 4em;
+    background-color: rgb(30, 30, 30);
+    span {
+      font-size: 1.25rem;
+      padding: 1em;
+    }
+    @include breakpoint(large) {
+      margin-bottom: 0;
+    }
+  }
+}
