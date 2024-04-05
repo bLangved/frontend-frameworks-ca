@@ -86,7 +86,13 @@ function Product() {
       </div>
       <section className="product-reviews">
         <h2>Customer reviews</h2>
-        <div>{renderedReviews}</div>
+        <div>
+          {renderedReviews && renderedReviews.length > 0 ? (
+            renderedReviews
+          ) : (
+            <div className="review">No reviews yet for this product!</div>
+          )}
+        </div>
       </section>
     </article>
   );
