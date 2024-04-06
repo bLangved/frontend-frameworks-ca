@@ -13,21 +13,31 @@ function Nav({ isOpen, toggleMenu }) {
         </header>
         <ul>
           <li>
-            <Link to="/products/tech">Tech</Link>
+            <Link to="/products/tech" onClick={toggleMenu}>
+              Tech
+            </Link>
           </li>
           <li>
-            <Link to="/products/clothes-shoewear">Clothes & shoewear</Link>
+            <Link to="/products/clothes-shoewear" onClick={toggleMenu}>
+              Clothes & shoewear
+            </Link>
           </li>
           <li>
-            <Link to="/products/food-supplements">Food & supplements</Link>
+            <Link to="/products/food-supplements" onClick={toggleMenu}>
+              Food & supplements
+            </Link>
           </li>
 
           <li>
-            <Link to="/products/perfume">Perfume</Link>
+            <Link to="/products/perfume" onClick={toggleMenu}>
+              Perfume
+            </Link>
           </li>
 
           <li>
-            <Link to="/products/toys">Toys</Link>
+            <Link to="/products/toys" onClick={toggleMenu}>
+              Toys
+            </Link>
           </li>
         </ul>
       </nav>

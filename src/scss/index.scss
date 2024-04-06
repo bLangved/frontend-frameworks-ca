@@ -447,46 +447,40 @@
   }
 
   .product-price-wrapper {
-    position: relative;
     grid-area: price;
     display: flex;
-    flex-direction: column;
-
     margin-left: 0.5em;
     @include breakpoint(medium) {
       margin-left: 0;
     }
 
+    .product-price {
+      display: flex;
+      flex-direction: column;
+      .product-price-discounted {
+        margin-top: auto;
+        font-size: 0.9rem;
+      }
+      .product-price {
+        margin-top: auto;
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+    }
     .product-price-discounted-percentage {
-      border-radius: $radius-circle;
-      background: red;
-      height: 3em;
-      width: 3em;
-      position: absolute;
-      top: -210px;
-      right: 7px;
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: $index-2;
+      background: $col-third;
+      height: 3em;
+      width: 6em;
+      margin: 0 0.5em 0 auto;
       span {
-        color: white;
+        font-size: 1.25rem;
+        color: $col-primary;
         font-weight: bold;
       }
-
-      @include breakpoint(x-small) {
-        top: -135px;
-        left: -64px;
-      }
-    }
-
-    .product-price-discounted {
-      margin-top: auto;
-      font-size: 0.9rem;
-    }
-    .product-price {
-      margin-top: auto;
-      font-size: 1.25rem;
-      font-weight: bold;
     }
   }
 
@@ -814,4 +808,10 @@
       margin-bottom: 1em;
     }
   }
+}
+
+// --- --- RouteNotFound --- --- //
+.page-not-found {
+  display: grid;
+  place-items: center;
 }

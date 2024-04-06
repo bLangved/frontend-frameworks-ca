@@ -4,6 +4,7 @@ import useApi from "../../hooks/useApi";
 import { API_BASE_URL } from "../../constants/apiUrls";
 import StarRating from "../../components/StarRating";
 import { useCart } from "../../contexts/CartContext";
+import calculatePercentage from "../../components/utils/calculatePercentage";
 
 function Product() {
   let { id } = useParams();
@@ -51,6 +52,8 @@ function Product() {
       ))
     : null;
 
+  const discountPercentage = calculatePercentage(productData);
+
   return (
     <article className="product">
       <img className="product-image" src={imageUrl} alt={imageAlt} />
@@ -62,8 +65,15 @@ function Product() {
       <div className="product-price-wrapper">
         {price !== discountedPrice && (
           <>
-            <span className="product-price-discounted">Before: {price},-</span>
-            <span className="product-price">Now: {discountedPrice},-</span>
+            <div className="product-price">
+              <span className="product-price-discounted">
+                Before: {price},-
+              </span>
+              <span className="product-price">Now: {discountedPrice},-</span>
+            </div>
+            <div className="product-price-discounted-percentage">
+              <span>-{discountPercentage.toFixed(0)}%</span>
+            </div>
           </>
         )}
         {discountedPrice === price && (
@@ -75,7 +85,6 @@ function Product() {
       <button className="product-buyBtn" onClick={() => addToCart(productData)}>
         Add to cart
       </button>
-
       <div className="product-tags">
         <span>tags:</span>
         <span>{renderedTags}</span>

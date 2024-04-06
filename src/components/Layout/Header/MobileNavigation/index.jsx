@@ -16,6 +16,13 @@ function MobileNavigation({ onSearchClick }) {
     0
   );
 
+  const handleLinkClick = () => {
+    setIsOpen(false); // This will close the menu
+    if (onSearchClick) {
+      onSearchClick(); // If there's a search click handler, call it
+    }
+  };
+
   return (
     <React.Fragment>
       <section className="mobile-navigation">
