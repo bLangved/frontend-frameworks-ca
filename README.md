@@ -42,9 +42,7 @@ npm install
 
 ### Running
 
-Here is where you detail how to run the app. 
-
-To run the app, run the following commands:
+To run the app, run the following command:
 
 ```properties
 npm run dev
@@ -60,7 +58,7 @@ To get in contact with me regarding this project, please use one of the below op
 
 [My LinkedIn page](https://www.linkedin.com/in/bj%C3%B8rnar-heian-langved-23157b246/)
 <br>
-Discord: Langved
+Discord User name: Langved
 
 ### Acknowledgments
 
