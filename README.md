@@ -5,7 +5,7 @@ This is my delivery for "Frontend frameworks CA". The goal for the assigment was
 
 "To apply knowledge of React to build an eCom store."
 
-Live link to site: https://github.com/bLangved/frontend-frameworks-ca
+[Live link to website](https://bhlweb-ecommerce.netlify.app)
 
 ## Status
 [![Netlify Status](https://api.netlify.com/api/v1/badges/32735433-8365-47aa-ae6a-e1dfbb9e0987/deploy-status)](https://app.netlify.com/sites/bhlweb-ecommerce/deploys)
